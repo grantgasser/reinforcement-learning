@@ -8,14 +8,9 @@ class GridWorld:
     def __init__(self, rows, cols):
         self.rows = rows
         self.cols = cols
-        self.grid = np.zeros((rows, cols))
+        self.grid = np.ones((rows, cols))*-1
         self.start = (0, 0)  # top left
         self.goal = (rows-1, cols-1)  # bottom right
-        self.obstacles = [(1,1), (2,2), (3,1)]
-
-        # Add -1 reward for hitting an obstacle
-        for obstacle in self.obstacles:
-            self.grid[obstacle] = -1
 
     """
     Moves the agent based on the current state and the action constrianed by the world and obstacles.
@@ -36,7 +31,7 @@ class GridWorld:
             i += 1
 
         # Check if state is in bounds and not an obstacle, otherwise don't move
-        if i >= 0 and i < self.rows and j >= 0 and j < self.cols and (i,j) not in self.obstacles:
+        if i >= 0 and i < self.rows and j >= 0 and j < self.cols and (i,j):
             return (i, j)
         else:
             return state
